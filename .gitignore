@@ -3,3 +3,6 @@
 
 #Workspace File
 **/Simon Game.code-workspace
+
+#Gitignore
+**/.gitignore
