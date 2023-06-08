@@ -64,6 +64,7 @@ $(".btn").click(function(){
         // Store the id in an array to generate a sequence
         userClickedPattern.push(userChosenColor);
 
+        // Call function to compare user's and computer's input
         checkAnswer(count);
 
         // Effects and Sounds
