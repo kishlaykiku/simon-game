@@ -42,7 +42,7 @@ function nextSequence()
     playSound(randomChosenColor);
 
     // Change header text
-    $("h1").text("Level " + level);
+    $("h1").text("Level " + (level+1));
 
     // Increase level by 1
     level++;
@@ -52,7 +52,6 @@ function nextSequence()
 
     // Reset counter
     count = 0;
-    console.log("Game Pattern: ", gamePattern); //Ignore
 }
 
 // Store user click pattern
@@ -65,6 +64,8 @@ $(".btn").click(function(){
         // Store the id in an array to generate a sequence
         userClickedPattern.push(userChosenColor);
 
+        checkAnswer(count);
+
         // Effects and Sounds
         animatePress(userChosenColor);
         playSound(userChosenColor);
@@ -75,7 +76,6 @@ $(".btn").click(function(){
         // Check if counter is equal to game pattern array length. If it is equal that means it is now computer's turn
         if(count == gamePattern.length)
         {
-            console.log("User Pattern: ", userClickedPattern); //Ignore
             // Next is computer's turn
             blockUser = true;
 
@@ -88,11 +88,30 @@ $(".btn").click(function(){
     }
 });
 
-
-
-function checkAnswer()
+// Check for pattern missmatch
+function checkAnswer(index)
 {
-    
+    if(userClickedPattern[index] != gamePattern[index])
+    {
+
+        // Reset all declaration to default
+        blockUser = true;
+        userClickedPattern = [];
+        gamePattern = [];
+        count = 0;
+        level = 0;
+
+        // Effects and Sounds
+        sound = new Audio("../sounds/wrong.mp3");
+        sound.play();
+        $("body").addClass("game-over");
+        setTimeout(function(){
+            $("body").removeClass("game-over");
+        },200);
+
+        // Change the header text
+        $("h1").text("Game Over, Press Any Key to Restart");
+    }
 }
 
 
@@ -100,7 +119,7 @@ function checkAnswer()
 function playSound(name)
 {
     // Create audio object
-    let sound = new Audio("./sounds/" + name + ".mp3");
+    let sound = new Audio("../sounds/" + name + ".mp3");
 
     // Play the sound
     sound.play();
