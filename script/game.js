@@ -7,6 +7,9 @@ let userClickedPattern = [];
 // For level increment
 let level = 0;
 
+// For continuous user input
+let count = 0;
+
 // For toggling chance
 let blockUser = true;
 
@@ -40,11 +43,16 @@ function nextSequence()
 
     // Change header text
     $("h1").text("Level " + level);
+
     // Increase level by 1
     level++;
 
     // Next is user's turn
     blockUser = false;
+
+    // Reset counter
+    count = 0;
+    console.log("Game Pattern: ", gamePattern); //Ignore
 }
 
 // Store user click pattern
@@ -61,17 +69,28 @@ $(".btn").click(function(){
         animatePress(userChosenColor);
         playSound(userChosenColor);
 
-        // Next is computer's turn
-        blockUser = true;
+        // Increment counter once
+        count++;
 
-        // Delay computer's turn by 1s
-        setTimeout(nextSequence, 1000);
+        // Check if counter is equal to game pattern array length. If it is equal that means it is now computer's turn
+        if(count == gamePattern.length)
+        {
+            console.log("User Pattern: ", userClickedPattern); //Ignore
+            // Next is computer's turn
+            blockUser = true;
+
+            // Empty the user pattern array
+            userClickedPattern = [];
+
+            // Delay computer's turn by 1s
+            setTimeout(nextSequence, 1000);
+        }
     }
 });
 
 
 
-function checkAnswer(gamePattern, userClickedPattern)
+function checkAnswer()
 {
     
 }
@@ -88,8 +107,9 @@ function playSound(name)
 }
 function animatePress(currentColor)
 {
+    // Add pressed class
     $("#" + currentColor).addClass("pressed");
     setTimeout(function(){
-        $("#" + currentColor).removeClass("pressed");
+        $("#" + currentColor).removeClass("pressed"); // Remove pressed class
     }, 100)
 }
