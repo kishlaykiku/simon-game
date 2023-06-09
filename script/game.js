@@ -103,7 +103,7 @@ function checkAnswer(index)
         level = 0;
 
         // Effects and Sounds
-        sound = new Audio("../sounds/wrong.mp3");
+        sound = new Audio("./sounds/wrong.mp3");
         sound.play();
         $("body").addClass("game-over");
         setTimeout(function(){
@@ -120,7 +120,7 @@ function checkAnswer(index)
 function playSound(name)
 {
     // Create audio object
-    let sound = new Audio("../sounds/" + name + ".mp3");
+    let sound = new Audio("./sounds/" + name + ".mp3");
 
     // Play the sound
     sound.play();
