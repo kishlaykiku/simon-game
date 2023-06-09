@@ -14,7 +14,7 @@ let count = 0;
 let blockUser = true;
 
 // Listen to keyboard
-$("body").keydown(function(){
+$("body").keypress(function(){
     if(level == 0)
     {
         // Call next sequence for the first time
@@ -95,7 +95,7 @@ function checkAnswer(index)
     if(userClickedPattern[index] != gamePattern[index])
     {
 
-        // Reset all declaration to default
+        // Reset all declaration to default and start over
         blockUser = true;
         userClickedPattern = [];
         gamePattern = [];
@@ -103,7 +103,7 @@ function checkAnswer(index)
         level = 0;
 
         // Effects and Sounds
-        sound = new Audio("../sounds/wrong.mp3");
+        sound = new Audio("./sounds/wrong.mp3");
         sound.play();
         $("body").addClass("game-over");
         setTimeout(function(){
@@ -120,7 +120,7 @@ function checkAnswer(index)
 function playSound(name)
 {
     // Create audio object
-    let sound = new Audio("../sounds/" + name + ".mp3");
+    let sound = new Audio("./sounds/" + name + ".mp3");
 
     // Play the sound
     sound.play();
