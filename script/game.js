@@ -14,7 +14,7 @@ let count = 0;
 let blockUser = true;
 
 // Listen to keyboard
-$("body").keydown(function(){
+$("body").keypress(function(){
     if(level == 0)
     {
         // Call next sequence for the first time
@@ -95,7 +95,7 @@ function checkAnswer(index)
     if(userClickedPattern[index] != gamePattern[index])
     {
 
-        // Reset all declaration to default
+        // Reset all declaration to default and start over
         blockUser = true;
         userClickedPattern = [];
         gamePattern = [];
