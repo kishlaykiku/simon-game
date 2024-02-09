@@ -13,7 +13,7 @@ let count = 0;
 // For toggling chance
 let blockUser = true;
 
-// Listen to keyboard
+// Listen to keyboard(For PC)
 $("body").keypress(function(){
     if(level == 0)
     {
@@ -24,6 +24,43 @@ $("body").keypress(function(){
         blockUser = false;
     }
 });
+
+// Listen to button(For Mobile)
+$(".start").click(function(){
+    if(level == 0)
+    {
+        // Call next sequence for the first time
+        nextSequence();
+
+        // Next is user's turn
+        blockUser = false;
+
+        // Change the start button to reset
+        $(".start").text("RESET");
+    }
+    else
+    {
+        // On click of the Start(Reset) button refresh the page
+        window.location.reload();
+    }
+});
+
+// Check for pointing devices
+function is_touch_enabled() {
+    return ( 'ontouchstart' in window ) || 
+           ( navigator.maxTouchPoints > 0 ) ||
+           ( navigator.msMaxTouchPoints > 0 );
+}
+// If its a touch screen show the start button
+if(is_touch_enabled())
+{
+    $("#level-title").text("Press the Button to Start");
+    $(".start").removeClass("hide");
+}
+else
+{
+    $("#level-title").text("Press A Key to Start");
+}
 
 // Generate pattern
 function nextSequence()
@@ -110,8 +147,15 @@ function checkAnswer(index)
             $("body").removeClass("game-over");
         },200);
 
-        // Change the header text
-        $("h1").text("Game Over, Press Any Key to Restart");
+        // Change the header text on game over
+        if(is_touch_enabled())
+        {
+            $("h1").text("Game Over, Press Reset to Restart");
+        }
+        else
+        {
+            $("h1").text("Game Over, Press Any Key to Restart");
+        }
     }
 }
 
