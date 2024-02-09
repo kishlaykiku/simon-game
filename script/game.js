@@ -177,3 +177,23 @@ function animatePress(currentColor)
         $("#" + currentColor).removeClass("pressed"); // Remove pressed class
     }, 100)
 }
+
+
+// Preloading audio files
+var audioFiles = [
+    "./sounds/blue.mp3",
+    "./sounds/green.mp3",
+    "./sounds/red.mp3",
+    "./sounds/wrong.mp3",
+    "./sounds/yellow.mp3"
+];
+
+function preloadAudio() {
+    for (var i = 0; i < audioFiles.length; i++) {
+        var audio = new Audio();
+        audio.src = audioFiles[i];
+        audio.preload = "auto";
+    }
+}
+// Call the preloadAudio function when the window loads
+window.onload = preloadAudio;
